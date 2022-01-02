@@ -1,1 +1,2 @@
-# 6Companies30days_ARoy
+# 6 Companies 30 days Challenge
+
