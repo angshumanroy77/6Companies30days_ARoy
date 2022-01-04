@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string encode(string src);    
+ 
+int main() {
+	
+	int T;
+	cin>>T;
+	while(T--)
+	{
+		string str;
+		cin>>str;
+		
+		cout<<encode(str)<<endl;
+	}
+	return 0;
+}// } Driver Code Ends
+
+
+/*You are required to complete this function */
+
+string encode(string src)
+{     
+  //Your code here 
+  string res="";
+  int i=0;
+  while(i<src.length())
+  {
+      char st=src[i++];
+      int len=1;
+       while(st==src[i] && i<src.length())
+       {len++;i++;}
+        res+=st;
+        res+=to_string(len);
+  }
+  return res;
+}     
+ 
