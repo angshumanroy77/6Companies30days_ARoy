@@ -1,0 +1,130 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// User function Template for C++
+
+class Solution{
+public:
+     int checkRow(vector<vector<int>> mat, int i)
+    {
+        unordered_set<int> s;
+        
+        for(int j = 0;j<mat.size();j++)
+        {
+            if (mat[i][j] == 0)
+            {
+                continue;
+            }
+            if (s.find(mat[i][j]) != s.end())
+            {
+                return 0;
+            }
+            else
+            {
+                s.insert(mat[i][j]);
+            }
+        }
+        return 1;
+    }
+    int checkCol(vector<vector<int>> mat, int i)
+    {
+        unordered_set<int> s;
+        
+        for(int j = 0;j<mat.size();j++)
+        {
+            if (mat[j][i] == 0)
+            {
+                continue;
+            }
+            if (s.find(mat[j][i]) != s.end())
+            {
+                return 0;
+            }
+            else
+            {
+                s.insert(mat[j][i]);
+            }
+        }
+        return 1;
+    }
+    
+    int checkSudoku(vector<vector<int>> mat)
+    {
+        int itr = 0;
+        int startRow = 0, startCol = 0;
+        int i = 0, j = 0;
+        
+        while(itr<9)
+        {
+            itr++;
+            unordered_set<int> set;
+            
+            for (i = 0; i < 3; i++)
+            {
+                for(j = 0; j < 3; j++)
+                {
+                    if (mat[startRow + i][startCol + j] == 0)
+                    {
+                        continue;
+                    }
+                    if (set.find(mat[startRow + i][startCol + j]) != set.end())
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        set.insert(mat[startRow + i][startCol + j]);
+                    }
+                }
+            }
+            
+            startRow +=3;
+            if (startRow==9)
+            {
+                startRow = 0;
+                startCol +=3;
+            }
+            
+        }
+        return 1;
+    }
+    
+    int isValid(vector<vector<int>> mat)
+    {
+        if (mat.size() != 9 && mat[0].size() != 9)
+        {
+            return 0;
+        }
+        
+        for(int i = 0; i < mat.size(); i++)
+        {
+            if (checkRow(mat, i) == 0)
+            {
+                return 0;
+            }
+            if (checkCol(mat, i) == 0)
+            {
+                return 0;
+            }
+        }
+        
+        return checkSudoku(mat);
+    }
+};
+
+// { Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        vector<vector<int>> mat(9, vector<int>(9, 0));
+        for(int i = 0;i < 81;i++)
+            cin>>mat[i/9][i%9];
+        
+        Solution ob;
+        cout<<ob.isValid(mat)<<"\n";
+    }
+    return 0;
+}  // } Driver Code Ends
