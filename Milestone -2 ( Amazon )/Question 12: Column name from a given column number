@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Solution{
+    public:
+    string colName (long long int n)
+    {
+        // your code here
+        string res="";
+        while(n>0)
+        { n--;
+            res=string(1,'A'+(n%26))+res;
+            n/=26;
+        }
+        return res;
+    }
+};
+
+// { Driver Code Starts.
+int main()
+{
+    int t; cin >> t;
+    while (t--)
+	{
+		long long int n; cin >> n;
+		Solution ob;
+		cout << ob.colName (n) << '\n';
+	}
+}
+  // } Driver Code Ends
