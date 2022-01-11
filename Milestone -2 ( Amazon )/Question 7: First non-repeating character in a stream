@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+	public:
+		string FirstNonRepeating(string A){
+		    // Code here
+		    string res="";
+		    int mp[26]={0};
+		    deque<char>dq;
+		    for(auto x:A)
+		    {
+		        int posi=x-'a';
+		        if(mp[posi]==0)
+		        dq.push_back(x);
+		        mp[posi]++;
+		        while(!dq.empty() && mp[dq.front()-'a']!=1)
+		        dq.pop_front();
+		        if(dq.empty())
+		        res+='#';
+		        else
+		        res+=dq.front();
+		    }
+		    return res;
+		}
+
+};
+
+// { Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		string A;
+		cin >> A;
+		Solution obj;
+		string ans = obj.FirstNonRepeating(A);
+		cout << ans << "\n";
+	}
+	return 0;
+}  // } Driver Code Ends
