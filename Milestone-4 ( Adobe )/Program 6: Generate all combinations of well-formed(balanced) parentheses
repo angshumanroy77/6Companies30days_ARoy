@@ -1,0 +1,32 @@
+// N is the number of pairs of parentheses
+// Return list of all combinations of balanced parantheses
+class Solution
+{
+    public:
+    void rec(vector<string>&ans,int ob,int cb,string &temp){
+        
+        if(ob==0 && cb==0){
+            ans.push_back(temp);
+            return;
+        }
+        if(ob!=0){
+            string op1=temp+'(';
+            rec(ans,ob-1,cb,op1);
+        }
+        if(cb>ob){
+            string op2=temp+')';
+            rec(ans,ob,cb-1,op2);
+        }
+    }
+    vector<string> AllParenthesis(int n) 
+    {
+        // Your code goes here 
+         int ob=n;
+        int cb=n;
+        vector<string>ans;
+        string temp="";
+        
+        rec(ans,ob,cb,temp);
+        return ans;
+    }
+};
