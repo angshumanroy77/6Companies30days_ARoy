@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool valid(vector<int>& piles, int h, int mid)
+    {
+        int time=0;
+        for(auto x:piles)
+        {  int currtime=x/mid;
+            if(x%mid!=0) currtime++;
+                time+=currtime;
+         if(time>h)return false;
+        }
+        return true;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n=piles.size(),high=*max_element(piles.begin(),piles.end());
+        if(n==high)
+            return high;
+        int low=1;
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+            if(valid(piles,h,mid))
+                high=mid-1;
+            else low=mid+1;
+        }
+        return low;
+    }
+};
