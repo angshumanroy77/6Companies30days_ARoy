@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool valid(vector<int>&arr,int N,int D,int mid)
+  {int cnt=1,sumi=0;
+      for(int i=0;i<N;i++)
+      {
+          if(sumi+arr[i]<=mid)
+          sumi+=arr[i];
+          else
+          {
+              if(arr[i]>mid) return false;
+              sumi=arr[i];
+              cnt++;
+          }
+      }
+      return (cnt<=D);
+      
+  }
+    int shipWithinDays(vector<int>& weights, int days) {
+     int N = weights.size();
+        int high=accumulate(weights.begin(),weights.end(),0);
+        int low=*max_element(weights.begin(),weights.end()),res=0;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+            if(valid(weights,N,days,mid))
+            {high=mid-1;res=mid;}
+            else low=mid+1;
+            
+        }
+        return res;
+
+    }    
+    
+};
