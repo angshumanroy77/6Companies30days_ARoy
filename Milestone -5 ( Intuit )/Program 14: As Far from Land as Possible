@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>>& g, int i, int j, int dist = 1) {
+    if (i < 0 || j < 0 || i >= g.size() || j >= g[i].size() || (g[i][j] != 0 && g[i][j] <= dist))   
+        return;
+  g[i][j] = dist;
+  dfs(g, i - 1, j, dist + 1), dfs(g, i + 1, j, dist + 1), dfs(g, i, j - 1, dist + 1), dfs(g, i, j + 1, dist + 1);
+}
+    int maxDistance(vector<vector<int>>& grid) {
+    int mx=-1;
+    for (auto i = 0; i < grid.size(); ++i)
+    for (auto j = 0; j < grid[i].size(); ++j)
+      if (grid[i][j] == 1) {
+          grid[i][j] = 0;
+          dfs(grid, i, j);
+      }
+    for (auto i = 0; i < grid.size(); ++i)
+    for (auto j = 0; j < grid[i].size(); ++j)
+      if (grid[i][j] > 1) 
+          mx = max(mx, grid[i][j] - 1);
+  return mx;
+    }
+};
