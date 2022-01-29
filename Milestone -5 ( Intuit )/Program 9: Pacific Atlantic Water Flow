@@ -1,0 +1,39 @@
+class Solution {
+public:
+     void dfs(int i,int j,int m,int n,vector<vector<int>>& heights, vector<vector<int>>& temp,int prev)
+    {
+        if(i<0 || j<0 || i>=m || j>=n || temp[i][j]!=-1 || heights[i][j]<prev)
+        {
+            return;
+        }
+        temp[i][j]=1;
+        dfs(i+1,j,m,n,heights,temp,heights[i][j]);
+         dfs(i-1,j,m,n,heights,temp,heights[i][j]);
+         dfs(i,j+1,m,n,heights,temp,heights[i][j]);
+         dfs(i,j-1,m,n,heights,temp,heights[i][j]);
+        
+    }
+    
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+         int m=heights.size();
+        int n=heights[0].size();
+        vector<vector<int>> temp1(m,vector<int>(n,-1));
+        for(int i=0;i<n;i++)
+            dfs(0,i,m,n,heights,temp1,-1);
+          for(int i=0;i<m;i++)
+            dfs(i,0,m,n,heights,temp1,-1);
+         vector<vector<int>> temp2(m,vector<int>(n,-1));
+        for(int i=0;i<n;i++)
+            dfs(m-1,i,m,n,heights,temp2,-1);
+          for(int i=0;i<m;i++)
+            dfs(i,n-1,m,n,heights,temp2,-1);
+        vector<vector<int>> re;
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+            {
+                if(temp1[i][j]==1 && temp2[i][j]==1)
+                    re.push_back({i,j});
+            }
+        return re;
+    }
+};
